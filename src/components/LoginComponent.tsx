@@ -23,6 +23,7 @@ export default function LoginComponent() {
     if (error) {
       alert(error.message);
     } else {
+      router.refresh();
       router.push("/services");
     }
     setIsLoading(false);

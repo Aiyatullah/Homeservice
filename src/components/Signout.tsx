@@ -17,6 +17,7 @@ export default function Signout() {
         return;
       }
       // Redirect to login after logout
+      router.refresh()
       router.push("/login");
     } catch (err) {
       console.error("Unexpected error:", err);
