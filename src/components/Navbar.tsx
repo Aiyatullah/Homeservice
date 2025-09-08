@@ -53,7 +53,9 @@ export default function Navbar() {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
 
         if (user) {
           const { data: profile } = await supabase
@@ -71,7 +73,9 @@ export default function Navbar() {
           setUserState({
             isAuthenticated: true,
             userRole: profile?.role || null,
-            hasPendingPayments: Boolean(pendingBookings && pendingBookings.length > 0),
+            hasPendingPayments: Boolean(
+              pendingBookings && pendingBookings.length > 0
+            ),
           });
         } else {
           setUserState({
@@ -109,7 +113,9 @@ export default function Navbar() {
         setUserState({
           isAuthenticated: true,
           userRole: profile?.role || null,
-          hasPendingPayments: Boolean(pendingBookings && pendingBookings.length > 0),
+          hasPendingPayments: Boolean(
+            pendingBookings && pendingBookings.length > 0
+          ),
         });
       } else if (event === "SIGNED_OUT") {
         setUserState({
@@ -121,7 +127,7 @@ export default function Navbar() {
     });
 
     return () => {
-      subscription.unsubscribe();
+      subscription?.unsubscribe();
     };
   }, []);
 
@@ -195,7 +201,9 @@ export default function Navbar() {
                   {isAuthenticated && (
                     <NavigationMenuItem>
                       <NavigationMenuTrigger>
-                        {userRole === "customer" ? "Services" : "Active Services"}
+                        {userRole === "customer"
+                          ? "Services"
+                          : "Active Services"}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent className="z-[9999]">
                         <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
@@ -211,13 +219,19 @@ export default function Navbar() {
                                 Share your experience
                               </ListItem>
                               {hasPendingPayments && (
-                                <ListItem href="/pay-services" title="💳 Pay Services">
+                                <ListItem
+                                  href="/pay-services"
+                                  title="💳 Pay Services"
+                                >
                                   Complete pending payments
                                 </ListItem>
                               )}
                             </>
                           ) : (
-                            <ListItem href="/active-services" title="🔧 Active Services">
+                            <ListItem
+                              href="/active-services"
+                              title="🔧 Active Services"
+                            >
                               Manage your current bookings
                             </ListItem>
                           )}
@@ -238,7 +252,10 @@ export default function Navbar() {
                             Unlock premium features
                           </ListItem>
                           {userRole === "customer" && hasPendingPayments && (
-                            <ListItem href="/pay-services" title="💳 Pay Services">
+                            <ListItem
+                              href="/pay-services"
+                              title="💳 Pay Services"
+                            >
                               Complete pending payments
                             </ListItem>
                           )}
@@ -288,12 +305,13 @@ export default function Navbar() {
                   {!isAuthenticated && (
                     <>
                       <NavigationMenuItem>
-                        <Link href="/login">
-                          Login
-                        </Link>
+                        <Link href="/login">Login</Link>
                       </NavigationMenuItem>
                       <NavigationMenuItem>
-                        <Link href="/signup" className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        <Link
+                          href="/signup"
+                          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                        >
                           Sign Up
                         </Link>
                       </NavigationMenuItem>
@@ -402,35 +420,63 @@ export default function Navbar() {
         {isMenuOpen && (
           <div className="md:hidden bg-background border-t z-50">
             <div className="px-4 py-3 space-y-2 max-h-96 overflow-y-auto">
-              <Link href="/" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent">
+              <Link
+                href="/"
+                onClick={() => setIsMenuOpen(false)}
+                className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent"
+              >
                 Home
               </Link>
 
               {isAuthenticated ? (
                 <>
-                  <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent">
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent"
+                  >
                     📊 Dashboard
                   </Link>
                   {userRole === "customer" ? (
                     <>
-                      <Link href="/services" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent">
+                      <Link
+                        href="/services"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent"
+                      >
                         🏷️ Services
                       </Link>
-                      <Link href="/feedback" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent">
+                      <Link
+                        href="/feedback"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent"
+                      >
                         💬 Feedback
                       </Link>
                       {hasPendingPayments && (
-                        <Link href="/pay-services" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium bg-orange-500 hover:bg-orange-600 text-white rounded-md">
+                        <Link
+                          href="/pay-services"
+                          onClick={() => setIsMenuOpen(false)}
+                          className="block px-3 py-2 text-base font-medium bg-orange-500 hover:bg-orange-600 text-white rounded-md"
+                        >
                           💳 Pay Services
                         </Link>
                       )}
                     </>
                   ) : (
-                    <Link href="/active-services" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent">
+                    <Link
+                      href="/active-services"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent"
+                    >
                       🔧 Active Services
                     </Link>
                   )}
-                  <Link href="/subscription" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent">
+                  <Link
+                    href="/subscription"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent"
+                  >
                     ⭐ Subscribe
                   </Link>
                   <div className="pt-2 border-t">
@@ -439,16 +485,32 @@ export default function Navbar() {
                 </>
               ) : (
                 <>
-                  <Link href="/about" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent">
+                  <Link
+                    href="/about"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent"
+                  >
                     📖 About
                   </Link>
-                  <Link href="/features" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent">
+                  <Link
+                    href="/features"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent"
+                  >
                     ✨ Features
                   </Link>
-                  <Link href="/login" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent">
+                  <Link
+                    href="/login"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-3 py-2 text-base font-medium rounded-md hover:bg-accent"
+                  >
                     🔐 Login
                   </Link>
-                  <Link href="/signup" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-md">
+                  <Link
+                    href="/signup"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-3 py-2 text-base font-medium bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+                  >
                     📝 Sign Up
                   </Link>
                 </>

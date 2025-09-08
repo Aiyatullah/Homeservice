@@ -1,10 +1,11 @@
 "use client";
 import { createClient } from "@/lib/client";
 import { useState } from "react";
-
+import { useRouter } from "next/navigation";
 export default function Signout() {
   const supabase = createClient();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleSignOut = async () => {
     setIsLoading(true);
@@ -16,7 +17,7 @@ export default function Signout() {
         return;
       }
       // Redirect to login after logout
-      window.location.href = '/login';
+      router.push("/login");
     } catch (err) {
       console.error("Unexpected error:", err);
       alert("An unexpected error occurred. Please try again.");
