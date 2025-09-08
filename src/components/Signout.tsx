@@ -1,7 +1,7 @@
 "use client";
 import { createClient } from "@/lib/client";
 import { useState } from "react";
-
+import { useRouter } from "next/navigation";
 export default function Signout() {
   const supabase = createClient();
   const [isLoading, setIsLoading] = useState(false);
