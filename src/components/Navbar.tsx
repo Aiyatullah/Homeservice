@@ -121,7 +121,7 @@ export default function Navbar() {
     });
 
     return () => {
-      subscription.unsubscribe();
+      subscription?.unsubscribe();
     };
   }, []);
 
